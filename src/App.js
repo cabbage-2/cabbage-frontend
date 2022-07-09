@@ -1,35 +1,62 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useContext } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter,
+  Redirect,
+} from "react-router-dom";
 import Login from "./routes/Login";
 import Home from "./routes/Home";
-// import { AuthProvider, useAuth } from "./AuthContext";
 import { auth } from "./firebase-config";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
   const provider = new GoogleAuthProvider();
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
-        const name = result.user.displayName;
-        const email = result.user.email;
-        const profilePic = result.user.photoURL;
+        window.location = "/";
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    // unsubscribe when component is unmounted
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      console.log(user);
+    });
+    return unsubscribe;
+  }, []);
+
+  const signOut = () => {
+    auth.signOut();
+  };
+
   return (
-    <div className="App">
+    <div>
       <Router>
+        {currentUser ? (
+          <div>
+            {/*TEMP NAV BAR */}
+            {currentUser.displayName} <button onClick={signOut}>signout</button>
+          </div>
+        ) : (
+          ""
+        )}
         <Switch>
-          <Route exact path="/login">
-            <Login />
+          <Route exact path="/login" component>
+            <Login signInWithGoogle={signInWithGoogle} />
           </Route>
-          <Route exact path="/">
+          <Route exact path={"/"}>
             <Home />
           </Route>
         </Switch>

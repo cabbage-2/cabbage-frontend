@@ -1,8 +1,8 @@
 import { AuthContext, useAuth } from "../AuthContext";
 // import { signInWithGoogle } from "../firebase-config";
 
-function Login() {
-  const signInWithGoogle = useAuth();
+function Login({ signInWithGoogle }) {
+  // const signInWithGoogle = useAuth();
 
   return (
     <div className="container">
