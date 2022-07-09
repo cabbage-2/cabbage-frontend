@@ -12,15 +12,25 @@ import Login from "./routes/Login";
 import Home from "./routes/Home";
 import { auth } from "./firebase-config";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import ProtectedRoute from "./ProtectedRoute";
+import { db } from "./firebase-config";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const provider = new GoogleAuthProvider();
+
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         window.location = "/";
       })
       .catch((error) => {
@@ -32,7 +42,8 @@ function App() {
     // unsubscribe when component is unmounted
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      console.log(user);
+      console.log("current user: ", user);
+      setUser(user.uid);
     });
     return unsubscribe;
   }, []);
@@ -40,27 +51,22 @@ function App() {
   const signOut = () => {
     auth.signOut();
   };
+  const setUser = async (uid) => {
+    try {
+      alert("trying");
+      await setDoc(doc(db, "Users", uid), {});
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
-      <Router>
-        {currentUser ? (
-          <div>
-            {/*TEMP NAV BAR */}
-            {currentUser.displayName} <button onClick={signOut}>signout</button>
-          </div>
-        ) : (
-          ""
-        )}
-        <Switch>
-          <Route exact path="/login" component>
-            <Login signInWithGoogle={signInWithGoogle} />
-          </Route>
-          <Route exact path={"/"}>
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+      {currentUser ? (
+        <Home currentUser={currentUser} signOut={signOut} />
+      ) : (
+        <Login signInWithGoogle={signInWithGoogle} />
+      )}
     </div>
   );
 }

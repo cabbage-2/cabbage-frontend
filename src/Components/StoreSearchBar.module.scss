@@ -1,0 +1,20 @@
+.search {
+  &--wrapper {
+    border: 1px solid lightgrey;
+    height: 37px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    justify-content: space-between;
+  }
+
+  &--input {
+    border: none;
+    width: 100%;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}

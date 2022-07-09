@@ -1,0 +1,21 @@
+.wrapper {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.content {
+  color: #510438;
+  font-size: 16px;
+
+  &--brand {
+    font-weight: bold;
+  }
+
+  &--button {
+    border: none;
+    background-color: transparent;
+  }
+}

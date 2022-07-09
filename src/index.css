@@ -4,6 +4,12 @@
 
 
 @layer components{
+    .bgColor--secondary {
+        background-color: #AE8F4A;
+    }
+    .color--secondary {
+        color: #AE8F4A;
+    }
     .sidebar-icon{
         @apply flex relative items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto px-0 py-0
         bg-secondary text-white 
