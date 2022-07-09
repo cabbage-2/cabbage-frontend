@@ -15,7 +15,7 @@ import {
 const StoreSearch = () => {
   const [search, setSearch] = useState("");
   const [stores, setStores] = useState([]);
-  const [searchResults, setSearchResults] = useState(["Fooding", "Makan"]);
+  const [searchResults, setSearchResults] = useState([]);
 
   const storesCollectionRef = collection(db, "Stores");
 

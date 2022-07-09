@@ -6,14 +6,14 @@ const Header = ({ signOut }) => {
       <div className={`${styles.content} ${styles["content--brand"]}`}>
         Cabbage
       </div>
-      {
+      {signOut && (
         <button
           onClick={signOut}
           className={`${styles.content} ${styles["content--button"]}`}
         >
           Logout
         </button>
-      }
+      )}
     </div>
   );
 };
