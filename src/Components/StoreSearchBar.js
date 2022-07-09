@@ -2,7 +2,10 @@ import axios from "axios";
 import styles from "./StoreSearchBar.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
 
-const StoreSearchBar = () => {
+const StoreSearchBar = ({ search, setSearch }) => {
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
   return (
     <div>
       <form>
@@ -10,6 +13,8 @@ const StoreSearchBar = () => {
           <input
             className={styles["search--input"]}
             type="search"
+            value={search}
+            onChange={handleChange}
             placeholder="Find a restaurant"
           />
           <AiOutlineSearch />

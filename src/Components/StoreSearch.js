@@ -1,6 +1,6 @@
 import StoreSearchBar from "./StoreSearchBar";
 import StoreSearchResults from "./StoreSearchResults";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./StoreSearch.module.scss";
 import { db } from "../firebase-config";
 import {
@@ -13,23 +13,56 @@ import {
 } from "firebase/firestore";
 
 const StoreSearch = () => {
-  const [Stores, setStores] = useState([]);
+  const [search, setSearch] = useState("");
+  const [stores, setStores] = useState([]);
   const [searchResults, setSearchResults] = useState(["Fooding", "Makan"]);
 
   const storesCollectionRef = collection(db, "Stores");
 
+  useEffect(() => {
+    getStores();
+  }, []);
+
   const getStores = async () => {
     try {
       const data = await getDocs(storesCollectionRef);
-      setStores(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const results = data.docs.map((doc) => doc.id);
+      console.log(results);
+      setStores(results);
     } catch (error) {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    if (search == "") {
+      setSearchResults([]);
+    } else {
+      setSearchResults(
+        stores.filter((item) => {
+          const wordArr = item.split(" ");
+          const isMatch = wordArr.some((word) => {
+            return word.toLowerCase().startsWith(search.toLowerCase());
+          });
+          console.log(isMatch);
+          if (isMatch) {
+            console.log("hi");
+            return true;
+          } else {
+            console.log("ho");
+            return false;
+          }
+        })
+      );
+    }
+  }, [search]);
   return (
     <div>
-      <StoreSearchBar />
-      <StoreSearchResults searchResults={searchResults} />
+      <StoreSearchBar search={search} setSearch={setSearch} />
+      <StoreSearchResults
+        searchResults={searchResults}
+        hasSearch={search != ""}
+      />
     </div>
   );
 };
