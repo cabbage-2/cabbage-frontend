@@ -1,7 +1,7 @@
-import RestaurantSearchBar from "./RestaurantSearchBar";
-import styles from "./RestaurantSearchResults.module.scss";
+import StoreSearchBar from "./StoreSearchBar";
+import styles from "./StoreSearchResults.module.scss";
 
-const RestaurantSearchResults = ({ searchResults }) => {
+const StoreSearchResults = ({ searchResults }) => {
   const length = searchResults.length;
   return (
     <div className={styles["container"]}>
@@ -19,4 +19,4 @@ const RestaurantSearchResults = ({ searchResults }) => {
   );
 };
 
-export default RestaurantSearchResults;
+export default StoreSearchResults;

@@ -1,8 +1,8 @@
 import axios from "axios";
-import styles from "./RestaurantSearchBar.module.scss";
+import styles from "./StoreSearchBar.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
 
-const RestaurantSearchBar = () => {
+const StoreSearchBar = () => {
   return (
     <div>
       <form>
@@ -19,4 +19,4 @@ const RestaurantSearchBar = () => {
   );
 };
 
-export default RestaurantSearchBar;
+export default StoreSearchBar;

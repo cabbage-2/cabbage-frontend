@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Header from "../Components/Header";
-import RestaurantSearchBar from "../Components/RestaurantSearchBar";
-import RestaurantSearchResults from "../Components/RestaurantSearchResults";
+import StoreSearch from "../Components/StoreSearch";
+import StoreSearchBar from "../Components/StoreSearchBar";
+import StoreSearchResults from "../Components/StoreSearchResults";
 import styles from "./Home.module.scss";
 
 const Home = ({ currentUser, signOut }) => {
@@ -13,8 +14,7 @@ const Home = ({ currentUser, signOut }) => {
         <h3 className={styles["content--title"]}>
           Welcome back, {currentUser.displayName}!
         </h3>
-        <RestaurantSearchBar />
-        <RestaurantSearchResults searchResults={searchResults} />
+        <StoreSearch />
       </div>
     </div>
   );

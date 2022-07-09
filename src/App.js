@@ -13,7 +13,6 @@ import Home from "./routes/Home";
 import { auth } from "./firebase-config";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import ProtectedRoute from "./ProtectedRoute";
-import RestaurantSearchBar from "./Components/RestaurantSearchBar";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
