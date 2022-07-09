@@ -44,12 +44,9 @@ const StoreSearch = () => {
           const isMatch = wordArr.some((word) => {
             return word.toLowerCase().startsWith(search.toLowerCase());
           });
-          console.log(isMatch);
           if (isMatch) {
-            console.log("hi");
             return true;
           } else {
-            console.log("ho");
             return false;
           }
         })

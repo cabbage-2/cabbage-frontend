@@ -12,12 +12,21 @@ import Login from "./routes/Login";
 import Home from "./routes/Home";
 import { auth } from "./firebase-config";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import ProtectedRoute from "./ProtectedRoute";
+import { db } from "./firebase-config";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-
   const provider = new GoogleAuthProvider();
+
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -34,12 +43,21 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       console.log("current user: ", user);
+      setUser(user.uid);
     });
     return unsubscribe;
   }, []);
 
   const signOut = () => {
     auth.signOut();
+  };
+  const setUser = async (uid) => {
+    try {
+      alert("trying");
+      await setDoc(doc(db, "Users", uid), {});
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
