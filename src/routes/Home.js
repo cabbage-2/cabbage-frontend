@@ -8,11 +8,13 @@ import StoreSearchResults from "../Components/StoreSearchResults";
 import styles from "./Home.module.scss";
 import {StoreContext} from "../Components/storecontext";
 import PreMeal from "../Components/portions";
+import PostMeal from "../Components/Submit";
 
 const Home = ({ currentUser, signOut }) => {
 
 const [isOpen, setIsOpen] = useState(false);
   const [sel,setSel] = useState("makan")
+  const [input,setInput] = useState(false)
   return (
     <StoreContext.Provider value={{sel, setSel}}>
       <div className={styles["container"]}>
@@ -24,7 +26,7 @@ const [isOpen, setIsOpen] = useState(false);
           </h3>
           <StoreSearch />
         </div>
-      <PreMeal store={sel} userweight={1}/>
+        <PostMeal store={sel} userweight={1}/>
       </div>
     </StoreContext.Provider>
   );

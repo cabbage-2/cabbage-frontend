@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import CreatableSelect from 'react-select/creatable';
 
-function Dropdown({options,fds,setFds,gf,weight}) {
+function Dropdown({options,fds,setFds}) {
     const [fd,setFd] = useState("");
 
     const handleClick = (f) => {
@@ -14,7 +14,7 @@ function Dropdown({options,fds,setFds,gf,weight}) {
         }
         
     }
-    const sum = fds.reduce((total,currentValue) => total = total+(currentValue.fullness)*.1/{weight},0)
+    const sum = fds.reduce((total,currentValue) => total = total+(currentValue.hunger)*.1,0)
     
     const handleRemove = (id) => {
         setFds(fds.filter(item => item.id !== id));
@@ -34,11 +34,10 @@ function Dropdown({options,fds,setFds,gf,weight}) {
         id="fooditem"
         onChange={(e) => setFd(e)}
         />
-    <button onClick={() => (handleClick(fd),console.log({fds}),{gf})}>+</button>
+        <button onClick={() => (handleClick(fd),console.log({fds}))}>+</button>
         {fds.map(({id,label,hunger}) => (
             <div className='fdBox' key={id} onClick={()=>handleRemove(id)}>
                 <h1 className='fdHead'>{label}</h1>
-                <p>{hunger} Servings</p>
             </div>
         ))}
         <h1>{sum}</h1>
