@@ -13,14 +13,16 @@ import Home from "./routes/Home";
 import { auth } from "./firebase-config";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import ProtectedRoute from "./ProtectedRoute";
+import RestaurantSearchBar from "./Components/RestaurantSearchBar";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+
   const provider = new GoogleAuthProvider();
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         window.location = "/";
       })
       .catch((error) => {
@@ -29,11 +31,10 @@ function App() {
   };
 
   useEffect(() => {
-    checkAndRedirect();
     // unsubscribe when component is unmounted
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      console.log(user);
+      console.log("current user: ", user);
     });
     return unsubscribe;
   }, []);
@@ -42,32 +43,16 @@ function App() {
     auth.signOut();
   };
 
-  const checkAndRedirect = () => {
-    if (!currentUser && window.location.pathname != "/login") {
-      window.location = "/login";
-    }
-  };
-
   return (
     <div>
-      <Router>
-        {currentUser ? (
-          <div>
-            {/*TEMP NAV BAR */}
-            {currentUser.displayName} <button onClick={signOut}>signout</button>
-          </div>
-        ) : (
-          ""
-        )}
-        <Switch>
-          <Route exact path="/login" component>
-            <Login signInWithGoogle={signInWithGoogle} />
-          </Route>
-          <Route exact path={"/"}>
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+      {currentUser ? (
+        <div>
+          {currentUser.displayName} <button onClick={signOut}>signout</button>
+        </div>
+      ) : (
+        ""
+      )}
+      {currentUser ? <Home /> : <Login signInWithGoogle={signInWithGoogle} />}
     </div>
   );
 }
