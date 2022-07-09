@@ -46,13 +46,10 @@ function App() {
   return (
     <div>
       {currentUser ? (
-        <div>
-          {currentUser.displayName} <button onClick={signOut}>signout</button>
-        </div>
+        <Home currentUser={currentUser} signOut={signOut} />
       ) : (
-        ""
+        <Login signInWithGoogle={signInWithGoogle} />
       )}
-      {currentUser ? <Home /> : <Login signInWithGoogle={signInWithGoogle} />}
     </div>
   );
 }
