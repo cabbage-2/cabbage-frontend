@@ -1,6 +1,7 @@
 import styles from "./Header.module.scss";
+import { MdMenu } from "react-icons/md";
 
-const Header = ({ signOut }) => {
+const Header = ({ signOut, isOpen, setIsOpen }) => {
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.content} ${styles["content--brand"]}`}>
@@ -8,10 +9,12 @@ const Header = ({ signOut }) => {
       </div>
       {signOut && (
         <button
-          onClick={signOut}
           className={`${styles.content} ${styles["content--button"]}`}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
         >
-          Logout
+          <MdMenu color={"#510438"} size={"20px"} />
         </button>
       )}
     </div>

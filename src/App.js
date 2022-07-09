@@ -54,10 +54,23 @@ function App() {
   };
   const setUser = async (uid) => {
     try {
-      alert("trying");
-      await setDoc(doc(db, "Users", uid), {});
+      await getUsers().then((arr) => {
+        if (!arr.includes(uid)) {
+          setDoc(doc(db, "Users", uid), {});
+        }
+      });
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const usersCollectionRef = collection(db, "Users");
+  const getUsers = async () => {
+    try {
+      const data = await getDocs(usersCollectionRef);
+      return data.docs.map((doc) => doc.id);
+    } catch (error) {
+      alert(error);
     }
   };
 
