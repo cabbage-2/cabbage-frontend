@@ -29,6 +29,7 @@ function App() {
   };
 
   useEffect(() => {
+    checkAndRedirect();
     // unsubscribe when component is unmounted
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -39,6 +40,12 @@ function App() {
 
   const signOut = () => {
     auth.signOut();
+  };
+
+  const checkAndRedirect = () => {
+    if (!currentUser && window.location.pathname != "/login") {
+      window.location = "/login";
+    }
   };
 
   return (
