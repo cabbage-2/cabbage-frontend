@@ -1,11 +1,19 @@
 import axios from "axios";
+import styles from "./RestaurantSearchBar.module.scss";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const RestaurantSearchBar = () => {
   return (
     <div>
       <form>
-        <input type="search" placeholder="Find a restaurant"></input>
-        <button>search</button>
+        <div className={styles["search--wrapper"]}>
+          <input
+            className={styles["search--input"]}
+            type="search"
+            placeholder="Find a restaurant"
+          />
+          <AiOutlineSearch />
+        </div>
       </form>
     </div>
   );
