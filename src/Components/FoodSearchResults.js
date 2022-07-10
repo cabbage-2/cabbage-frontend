@@ -4,7 +4,7 @@ import styles from "./StoreSearchResults.module.scss";
 import StoreSearch from "./StoreSearch";
 import { StoreProvider, StoreContext } from "./storecontext";
 
-const StoreSearchResults = ({ searchResults, hasSearch }) => {
+const FoodSearchResults = ({ searchResults, hasSearch }) => {
   const length = searchResults.length;
   const { sel, setSel } = useContext(StoreContext);
   return (
@@ -33,4 +33,4 @@ const StoreSearchResults = ({ searchResults, hasSearch }) => {
   );
 };
 
-export default StoreSearchResults;
+export default FoodSearchResults;
