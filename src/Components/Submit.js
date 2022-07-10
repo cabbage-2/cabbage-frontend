@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { db } from "../firebase-config";
 import {
   addDoc,
@@ -16,8 +16,12 @@ import {
 // import Select from 'react-select';
 // import Creatable, {useCreatable} from 'react-select/creatable';
 import Dropdown from "./select2";
+import PrimaryButton from "./PrimaryButton";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
+import { RouteContext } from "./RouteContext";
 
 function FormCheck(props) {
+  const { stage, setStage } = useContext(RouteContext);
   const [hunger, setHunger] = useState(0);
   const [name, setName] = useState();
   const [test, setTest] = useState();
@@ -124,6 +128,7 @@ function FormCheck(props) {
           fullness="2"
           name={name}
           foodsRef={foodsRef}
+          setStage={setStage}
         />
       </div>
     </div>
@@ -139,6 +144,7 @@ const Submit = ({
   test,
   foodsRef,
   getFood,
+  setStage,
 }) => {
   let obj = {
     foodName: name,
@@ -148,7 +154,15 @@ const Submit = ({
   };
   return (
     <div>
-      <button onClick={() => (addDoc(foodsRef, obj), getFood)}>submit</button>
+      <PrimaryButton
+        text={"Submit"}
+        fn={() => {
+          setStage(4);
+          addDoc(foodsRef, obj);
+          getFood();
+        }}
+      />
+      {/* <button onClick={() => (addDoc(foodsRef, obj), getFood)}>submit</button> */}
     </div>
   );
 };

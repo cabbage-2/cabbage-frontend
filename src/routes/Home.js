@@ -10,35 +10,51 @@ import { StoreContext } from "../Components/storecontext";
 import PreMeal from "../Components/portions";
 import PostMeal from "../Components/Submit";
 import OrderSection from "../Components/OrderSection";
+import { RouteContext } from "../Components/RouteContext";
+import EndSection from "../Components/EndSection";
 
 const Home = ({ currentUser, signOut }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [sel, setSel] = useState();
   const [input, setInput] = useState(false);
+  const [stage, setStage] = useState(1);
+
   return (
     <StoreContext.Provider value={{ sel, setSel }}>
-      <div className={styles["container"]}>
-        <div className={styles["content--wrapper"]}>
-          <Sidebar2 isOpen={isOpen} setIsOpen={setIsOpen} signOut={signOut} />
-          <Header signOut={signOut} isOpen={isOpen} setIsOpen={setIsOpen} />
-          {!sel && (
-            <div>
-              <h3 className={styles["content--title"]}>
-                Welcome back, {currentUser.displayName}!
-              </h3>
-              <StoreSearch />
-            </div>
-          )}
-          {sel && (
-            <div>
-              <PreMeal store={sel} userweight={1} />
-              <OrderSection sel={sel} />
-            </div>
-          )}
+      <RouteContext.Provider value={{ stage, setStage }}>
+        <div className={styles["container"]}>
+          <div className={styles["content--wrapper"]}>
+            <Sidebar2 isOpen={isOpen} setIsOpen={setIsOpen} signOut={signOut} />
+            <Header signOut={signOut} isOpen={isOpen} setIsOpen={setIsOpen} />
 
-          {/* {sel && <PostMeal store={sel} userweight={1} />} */}
+            {/* 1. RESTAURANT SEARCH */}
+            {stage === 1 && (
+              <div>
+                <h3 className={styles["content--title"]}>
+                  Welcome back, {currentUser.displayName}!
+                </h3>
+                <StoreSearch />
+              </div>
+            )}
+
+            {/* 2. PREMEAL */}
+            {sel &&
+              stage ===
+                2(
+                  <div>
+                    <PreMeal store={sel} userweight={1} />
+                    <OrderSection sel={sel} fn={() => setStage(3)} />
+                  </div>
+                )}
+
+            {/* 3. POSTMEAL */}
+            {stage === 3 && <PostMeal store={sel} userweight={1} />}
+
+            {/*4. SUBMIT AND RETURN */}
+            {stage === 4 && <EndSection />}
+          </div>
         </div>
-      </div>
+      </RouteContext.Provider>
     </StoreContext.Provider>
   );
 };

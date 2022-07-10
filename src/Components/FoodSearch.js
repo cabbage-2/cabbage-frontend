@@ -68,7 +68,7 @@ const FoodSearch = ({ isOpen, setIsOpen, sel }) => {
           />
         </div>
         <PrimaryButton
-          text={"Continue"}
+          text={"Add Item(s)"}
           fn={() => {
             setIsOpen(false);
           }}

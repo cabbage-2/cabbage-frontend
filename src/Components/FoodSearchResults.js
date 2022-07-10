@@ -23,7 +23,6 @@ const FoodSearchResults = ({ searchResults, hasSearch }) => {
                 }}
               >
                 {item}
-                {/* <button onClick={() => setSel(null)}>{sel}</button> */}
               </div>
             ))}
           </div>
