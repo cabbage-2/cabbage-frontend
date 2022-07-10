@@ -11,7 +11,7 @@ const OrderSection = ({ sel, fn }) => {
     setIsOpen(true);
   };
   return (
-    <div className={styles["container"]}>
+    <div className="orDiv">
       <div className={styles["header"]}>
         <div>Your Order</div>
         <div onClick={handleOpen} className={styles["header--button"]}>

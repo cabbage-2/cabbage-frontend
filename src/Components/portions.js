@@ -50,8 +50,8 @@ function FormCheck(props) {
   return (
     <div className="form">
       <div className="form-body">
-        <h1 className="">How hungry are you right now (5 being highest)</h1>
-        <div className="entry flex flex-row w-screen items-center justify-center">
+        <h1 className="header py-2">How hungry are you right now (5 being highest)</h1>
+        <div className="entry flex flex-row items-center justify-center">
           <div
             className={`portionbtn ${hunger === 1 ? "btn-selected" : ""}`}
             onClick={() => setHunger(1)}

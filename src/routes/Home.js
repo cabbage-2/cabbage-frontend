@@ -39,9 +39,9 @@ const Home = ({ currentUser, signOut }) => {
 
             {/* 2. PREMEAL */}
             {sel && stage === 2 && (
-              <div>
-                <PreMeal store={sel} userweight={1} />
-                <OrderSection sel={sel} fn={() => setStage(3)} />
+              <div className='flex flex-col relative'>
+                <PreMeal store={sel} userweight={1} className='relative'/>
+                <OrderSection sel={sel} fn={() => setStage(3)} className='relative'/>
               </div>
             )}
 

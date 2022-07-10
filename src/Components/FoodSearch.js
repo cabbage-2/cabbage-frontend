@@ -58,8 +58,8 @@ const FoodSearch = ({ isOpen, setIsOpen, sel }) => {
     }
   }, [search]);
   return (
-    <Modal isOpen={isOpen} style={{ overlay: { background: "#00000030" } }}>
-      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <Modal isOpen={isOpen} className="Modal" >
+      <div style={{ display: "flex", flexDirection: "column", height: "100%",}}>
         <FoodSearchBar search={search} setSearch={setSearch} />
         <div style={{ flexGrow: "1" }}>
           <FoodSearchResults
