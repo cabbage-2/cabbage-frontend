@@ -39,6 +39,20 @@ const FoodSearch = ({ isOpen, setIsOpen, sel, foodlist, setFoodlist }) => {
     getFood(); // Run! Like go get some data from an API.
   }, []);
 
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      width: "360px",
+      height: "80vh",
+    },
+    overlay: { backgroundColor: "#00000030" },
+  };
+
   const getFood = async () => {
     try {
       const q = query(foodsRef, where("foodName", "!=", ""));
@@ -76,8 +90,8 @@ const FoodSearch = ({ isOpen, setIsOpen, sel, foodlist, setFoodlist }) => {
     }
   }, [search]);
   return (
-    <Modal isOpen={isOpen} className="Modal" >
-      <div style={{ display: "flex", flexDirection: "column", height: "100%",}}>
+    <Modal isOpen={isOpen} style={customStyles}>
+      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <FoodSearchBar search={search} setSearch={setSearch} />
         <div style={{ flexGrow: "1" }}>
           <FoodSearchResults
