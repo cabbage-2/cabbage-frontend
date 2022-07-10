@@ -6,7 +6,10 @@ const EndSection = () => {
   const { stage, setStage } = useContext(RouteContext);
   return (
     <div>
-      the end
+      <div style={{ fontWeight: "bold", fontSize: "18px" }}>
+        Thanks for your feedback!
+      </div>
+      <div style={{ margin: "25px 0" }}>Your data helps to improve Cabbage</div>
       <PrimaryButton
         text={"Back to Search"}
         fn={() => {

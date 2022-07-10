@@ -4,9 +4,30 @@ import styles from "./StoreSearchResults.module.scss";
 import StoreSearch from "./StoreSearch";
 import { StoreProvider, StoreContext } from "./storecontext";
 
-const FoodSearchResults = ({ searchResults, hasSearch }) => {
+const FoodSearchResults = ({
+  searchResults,
+  hasSearch,
+  orderedFood,
+  setOrderedFood,
+}) => {
   const length = searchResults.length;
   const { sel, setSel } = useContext(StoreContext);
+  const buttonStyle = {
+    // backgroundColor: "#F7F8F9",
+    // borderRadius: "50%",
+    padding: "20px",
+    width: "24px",
+    height: "24px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#64748B",
+    fontSize: "16px",
+  };
+
+  const handleAdd = (item) => {
+    //HELPPPPPPP
+  };
   return (
     <div className={styles["container"]}>
       {hasSearch && (
@@ -21,8 +42,22 @@ const FoodSearchResults = ({ searchResults, hasSearch }) => {
                 onClick={() => {
                   setSel({ item }["item"]);
                 }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
               >
-                {item}
+                <div>
+                  <div>{item.label}</div>
+                  <div style={{ color: "#64748B" }}>Portion example</div>
+                </div>
+                <div style={{ display: "flex" }}>
+                  <div onClick={() => {}} style={buttonStyle}>
+                    +
+                  </div>
+                </div>
               </div>
             ))}
           </div>
