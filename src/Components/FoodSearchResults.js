@@ -3,11 +3,8 @@ import React, { useState, useContext } from "react";
 import styles from "./StoreSearchResults.module.scss";
 import StoreSearch from "./StoreSearch";
 import { StoreProvider, StoreContext } from "./storecontext";
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
-import { RouteContext } from "./RouteContext";
 
-const StoreSearchResults = ({ searchResults, hasSearch }) => {
-  const { stage, setStage } = useContext(RouteContext);
+const FoodSearchResults = ({ searchResults, hasSearch }) => {
   const length = searchResults.length;
   const { sel, setSel } = useContext(StoreContext);
   return (
@@ -22,12 +19,10 @@ const StoreSearchResults = ({ searchResults, hasSearch }) => {
               <div
                 className={styles["results--item"]}
                 onClick={() => {
-                  setStage(2);
                   setSel({ item }["item"]);
                 }}
               >
                 {item}
-                {/* <button onClick={() => setSel(null)}>{sel}</button> */}
               </div>
             ))}
           </div>
@@ -37,4 +32,4 @@ const StoreSearchResults = ({ searchResults, hasSearch }) => {
   );
 };
 
-export default StoreSearchResults;
+export default FoodSearchResults;

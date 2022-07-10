@@ -11,6 +11,10 @@
   &--item {
     padding: 10px 0px;
     border-top: 1px lightgrey solid;
+
+    &:hover {
+      background-color: #ae8f4a40;
+    }
   }
 
   &--item:first-child {

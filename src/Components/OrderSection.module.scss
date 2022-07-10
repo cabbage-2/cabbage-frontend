@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  &--button {
+    color: #ae8f4a;
+    cursor: pointer;
+  }
+}
+.foodlist {
+  padding: 5px 0;
+}
