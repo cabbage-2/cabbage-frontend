@@ -6,8 +6,13 @@ const EndSection = () => {
   const { stage, setStage } = useContext(RouteContext);
   return (
     <div>
-      hay
-      <PrimaryButton text={"Back to Search"} fn={setStage(1)} />
+      the end
+      <PrimaryButton
+        text={"Back to Search"}
+        fn={() => {
+          setStage(1);
+        }}
+      />
     </div>
   );
 };

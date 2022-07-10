@@ -38,14 +38,12 @@ const Home = ({ currentUser, signOut }) => {
             )}
 
             {/* 2. PREMEAL */}
-            {sel &&
-              stage ===
-                2(
-                  <div>
-                    <PreMeal store={sel} userweight={1} />
-                    <OrderSection sel={sel} fn={() => setStage(3)} />
-                  </div>
-                )}
+            {sel && stage === 2 && (
+              <div>
+                <PreMeal store={sel} userweight={1} />
+                <OrderSection sel={sel} fn={() => setStage(3)} />
+              </div>
+            )}
 
             {/* 3. POSTMEAL */}
             {stage === 3 && <PostMeal store={sel} userweight={1} />}
