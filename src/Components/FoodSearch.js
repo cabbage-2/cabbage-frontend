@@ -24,7 +24,7 @@ import {
 import Select from "react-select";
 import Dropdown from "./select";
 
-const FoodSearch = ({ isOpen, setIsOpen, sel }) => {
+const FoodSearch = ({ isOpen, setIsOpen, sel, foodlist, setFoodlist }) => {
   const [hunger, setHunger] = useState(0);
   const [name, setName] = useState();
   const [test, setTest] = useState();
@@ -83,6 +83,8 @@ const FoodSearch = ({ isOpen, setIsOpen, sel }) => {
           <FoodSearchResults
             searchResults={searchResults}
             hasSearch={search != ""}
+            foodlist={foodlist}
+            setFoodlist={setFoodlist}
           />
         </div>
         <PrimaryButton

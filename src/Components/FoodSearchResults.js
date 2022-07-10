@@ -7,8 +7,8 @@ import { StoreProvider, StoreContext } from "./storecontext";
 const FoodSearchResults = ({
   searchResults,
   hasSearch,
-  orderedFood,
-  setOrderedFood,
+  foodlist,
+  setFoodlist,
 }) => {
   const length = searchResults.length;
   const { sel, setSel } = useContext(StoreContext);
@@ -26,7 +26,7 @@ const FoodSearchResults = ({
   };
 
   const handleAdd = (item) => {
-    //HELPPPPPPP
+    setFoodlist(current => [...current,item]);
   };
   return (
     <div className={styles["container"]}>
@@ -36,7 +36,9 @@ const FoodSearchResults = ({
             {length} Result{length == 1 ? "" : "s"}
           </div>
           <div>
-            {searchResults.map((item) => (
+            {searchResults.map((item) => {
+              const portion = item.hunger*0.15;
+              return(
               <div
                 className={styles["results--item"]}
                 onClick={() => {
@@ -51,15 +53,15 @@ const FoodSearchResults = ({
               >
                 <div>
                   <div>{item.label}</div>
-                  <div style={{ color: "#64748B" }}>Portion example</div>
+                  <div style={{ color: "#64748B" }}>{portion} of your regular meal</div>
                 </div>
                 <div style={{ display: "flex" }}>
-                  <div onClick={() => {}} style={buttonStyle}>
+                  <div onClick={() => handleAdd({item})} style={buttonStyle}>
                     +
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       )}
