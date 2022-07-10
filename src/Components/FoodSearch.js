@@ -4,35 +4,53 @@ import { useState, useEffect } from "react";
 import styles from "./StoreSearch.module.scss";
 import { db } from "../firebase-config";
 import Modal from "react-modal";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
 import PrimaryButton from "./PrimaryButton";
 import FoodSearchBar from "./FoodSearchBar";
 import FoodSearchResults from "./FoodSearchResults";
 
+import {
+  addDoc,
+  collection,
+  query,
+  getDocs,
+  QuerySnapshot,
+  serverTimestamp,
+  where,
+  get,
+  forEach,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import Select from "react-select";
+import Dropdown from "./select";
+
 const FoodSearch = ({ isOpen, setIsOpen, sel }) => {
+  const [hunger, setHunger] = useState(0);
+  const [name, setName] = useState();
+  const [test, setTest] = useState();
+  const foodsRef = collection(db, `Stores/${sel}/Foods`);
+  const [food, setFood] = useState(["Loading"]);
+  // const [fds, setFds] = useState([]);
+
   const [search, setSearch] = useState("");
-  const [foods, setfoods] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
-  const foodsCollectionRef = collection(db, sel);
-
   useEffect(() => {
-    getFoods();
+    getFood(); // Run! Like go get some data from an API.
   }, []);
 
-  const getFoods = async () => {
+  const getFood = async () => {
     try {
-      const data = await getDocs(foodsCollectionRef);
-      const results = data.docs.map((doc) => doc);
-      console.log("results: ", results);
-      setfoods(results);
+      const q = query(foodsRef, where("foodName", "!=", ""));
+      const data = await getDocs(q);
+      const array = data.docs.map((doc) => ({
+        id: doc.id,
+        label: doc.data().foodName,
+        hunger: doc.data().hungerlevel,
+        weight: doc.data().userweight,
+      }));
+      console.log(array);
+      setFood(array);
     } catch (error) {
       alert(error);
     }
@@ -43,8 +61,8 @@ const FoodSearch = ({ isOpen, setIsOpen, sel }) => {
       setSearchResults([]);
     } else {
       setSearchResults(
-        foods.filter((item) => {
-          const wordArr = item.split(" ");
+        food.filter((item) => {
+          const wordArr = item.label.split(" ");
           const isMatch = wordArr.some((word) => {
             return word.toLowerCase().startsWith(search.toLowerCase());
           });
